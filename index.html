@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1Agamert | Player Rating</title>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .main-card {
+            background: linear-gradient(145deg, #151515, #1d1d1d);
+            border: 1px solid #333;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #00d4ff;
+            margin-bottom: 5px;
+            font-size: 2.5rem;
+        }
+
+        .author {
+            color: #888;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .combat-levels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+            margin: 25px 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .level-item {
+            background: #252525;
+            padding: 10px;
+            border-radius: 10px;
+            border-bottom: 3px solid #00d4ff;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .ht5 { border-color: #ff4757; color: #ff4757; } /* رتبة قتالية عالية */
+
+        .status-badge {
+            display: inline-block;
+            background: rgba(255, 71, 87, 0.1);
+            color: #ff4757;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border: 1px solid #ff4757;
+        }
+
+        .btn-container {
+            margin-top: 30px;
+        }
+
+        .subscribe-btn {
+            background-color: #ff0000;
+            color: white;
+            padding: 15px 35px;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: bold;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .subscribe-btn:hover {
+            background-color: #cc0000;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 0, 0, 0.5);
+        }
+
+        .coming-soon {
+            font-style: italic;
+            margin-top: 15px;
+            display: block;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-card">
+        <h1>نظام تقييم اللاعبين</h1>
+        <p class="author">By 1Agamert</p>
+
+        <span class="status-badge">قيد التطوير - Coming Soon</span>
+
+        <p>دعم كامل لأنواع القتال:</p>
+        <ul class="combat-levels">
+            <li class="level-item">HT1</li>
+            <li class="level-item">HT2</li>
+            <li class="level-item">HT3</li>
+            <li class="level-item">HT4</li>
+            <li class="level-item">HT5</li>
+        </ul>
+
+        <div class="btn-container">
+            <a href="https://www.youtube.com/@bloxdThemYT" target="_blank" class="subscribe-btn">
+                إشترك في قناة 1Agamert
+            </a>
+            <span class="coming-soon">الموقع قيد التحديث...</span>
+        </div>
+    </div>
+
+</body>
+</html>
