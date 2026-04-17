@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1Agamert | Bloxd Leaderboard</title>
+    <title>1Agamert | Bloxd Ranking</title>
     <style>
         :root {
             --bg-body: #080a10;
-            --bg-card: #0c0f17;
+            --bg-card: #0c111a;
             --primary-blue: #58a6ff;
             --text-main: #c9d1d9;
             --text-sub: #8b949e;
             --yt-red: #ff0000;
+            --gold: #ffd700;
         }
 
         body {
             background-color: var(--bg-body);
             color: var(--text-main);
-            font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -29,196 +30,190 @@
         .main-container {
             background-color: var(--bg-card);
             border: 1px solid #1f2937;
-            border-radius: 15px;
+            border-radius: 16px;
             width: 95%;
-            max-width: 1000px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            max-width: 900px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
         }
 
-        /* --- New Title & Profile Section --- */
-        .title-profile-area {
+        /* Profile Area */
+        .profile-header {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
             margin-bottom: 25px;
         }
 
-        .profile-circle {
-            width: 80px;
-            height: 80px;
+        .profile-img-circle {
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
-            border: 3px solid #1f2937;
+            border: 2px solid var(--primary-blue);
             overflow: hidden;
-            flex-shrink: 0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-            transition: border-color 0.3s;
+            background: #161b22;
         }
 
-        .profile-circle:hover {
-            border-color: var(--yt-red);
-        }
+        .profile-img-circle img { width: 100%; height: 100%; object-fit: cover; }
 
-        .profile-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        h2.title-text {
-            margin: 0;
-            font-size: 1.8rem;
-            color: var(--text-main);
-            letter-spacing: 0.5px;
-        }
-
-        /* --- Category Bar --- */
-        .category-wrapper {
-            margin-bottom: 30px;
-        }
-
-        .category-bar {
-            display: flex;
-            gap: 12px;
+        /* Navigation Bar (From Images) */
+        .nav-scroll {
             overflow-x: auto;
-            padding: 10px 15px;
-            background: #111520;
-            border-radius: 50px;
-            border: 1px solid #1f2937;
-            scrollbar-width: thin;
+            margin-bottom: 25px;
         }
 
-        .category-bar::-webkit-scrollbar {
-            height: 4px;
-        }
-        .category-bar::-webkit-scrollbar-thumb {
-            background: #30363d;
-            border-radius: 10px;
-        }
-
-        .category-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 18px;
-            border-radius: 50px;
-            white-space: nowrap;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: 0.2s;
-        }
-
-        .category-item.active {
-            background-color: white;
-            color: black;
-        }
-
-        .category-item:not(.active):hover {
-            background: #1f2937;
-        }
-
-        /* --- Combat Tiers --- */
-        .tier-section {
-            margin-top: 20px;
-        }
-
-        .tier-title {
-            color: var(--text-sub);
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-        }
-
-        .tier-list {
+        .nav-bar {
             display: flex;
             gap: 10px;
-            list-style: none;
-            padding: 0;
-        }
-
-        .tier-card {
-            background: rgba(88, 166, 255, 0.05);
+            background: #111520;
+            padding: 10px;
+            border-radius: 50px;
             border: 1px solid #1f2937;
-            padding: 10px 18px;
-            border-radius: 6px;
-            color: var(--primary-blue);
-            font-weight: bold;
-            font-size: 0.9rem;
-            text-align: center;
-            min-width: 55px;
+            width: max-content;
         }
 
-        .ht5 {
-            border-color: var(--yt-red);
-            color: var(--yt-red);
-            background: rgba(248, 81, 73, 0.05);
+        .nav-item {
+            padding: 8px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-weight: 500;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        /* --- Subscribe Area --- */
-        .subscribe-area {
-            margin-top: 40px;
-            text-align: center;
-            border-top: 1px solid #1f2937;
-            padding-top: 25px;
+        .nav-item.active { background: white; color: black; }
+        .nav-item:not(.active):hover { background: #1f2937; }
+
+        /* Leaderboard Table */
+        .leaderboard-box {
+            background: #0d1117;
+            border-radius: 12px;
+            border: 1px solid #1f2937;
+            overflow: hidden;
+            margin-bottom: 25px;
         }
+
+        .table-head {
+            display: flex;
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.03);
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            border-bottom: 1px solid #1f2937;
+        }
+
+        .player-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 20px;
+            border-bottom: 1px solid #1f2937;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+
+        .rank-col { width: 40px; font-weight: bold; }
+        .name-col { flex-grow: 1; font-weight: 500; }
+        .tier-col { color: var(--primary-blue); font-weight: bold; font-size: 0.9rem; }
 
         .sub-btn {
             background: var(--yt-red);
             color: white;
             text-decoration: none;
-            padding: 14px 30px;
-            border-radius: 8px;
+            padding: 15px;
+            border-radius: 10px;
             font-weight: bold;
-            display: inline-block;
-            transition: transform 0.2s, background 0.2s;
+            display: block;
+            text-align: center;
+            transition: 0.3s;
         }
-
-        .sub-btn:hover {
-            background: #cc0000;
-            transform: scale(1.05);
-        }
+        .sub-btn:hover { background: #cc0000; transform: scale(1.02); }
     </style>
 </head>
 <body>
 
     <div class="main-container">
         
-        <div class="title-profile-area">
-            <div class="profile-circle">
-                <img src="image_3.png" alt="1Agamert Profile" class="profile-image">
-            </div>
-            <h2 class="title-text">By 1Agamert</h2>
-        </div>
-
-        <div class="category-wrapper">
-            <div class="category-bar">
-                <div class="category-item active">🏆 Overall</div>
-                <div class="category-item">⚔️ Sword</div>
-                <div class="category-item">🍲 Soup</div>
-                <div class="category-item">🕸️ UHC</div>
-                <div class="category-item">🛡️ Pot</div>
-                <div class="category-item">🕳️ Hole</div>
-                <div class="category-item">🛏️ Bedwars</div>
-                <div class="category-item">🌲 Skywars</div>
-                <div class="category-item">💠 E. PvP</div>
+        <div class="profile-header">
+            <div class="profile-img-circle"><img src="profile.png" alt="1Agamert"></div>
+            <div>
+                <h2 style="margin:0;">By 1Agamert</h2>
+                <div id="status-text" style="color: var(--primary-blue); font-size: 0.9rem;">Overall Ranking</div>
             </div>
         </div>
 
-        <div class="tier-section">
-            <div class="tier-title">Combat Tiers:</div>
-            <div class="tier-list">
-                <div class="tier-card">HT1</div>
-                <div class="tier-card">HT2</div>
-                <div class="tier-card">HT3</div>
-                <div class="tier-card">HT4</div>
-                <div class="tier-card ht5">HT5</div>
+        <div class="nav-scroll">
+            <div class="nav-bar">
+                <div class="nav-item active" onclick="showRank('Overall')">🏆 Overall</div>
+                <div class="nav-item" onclick="showRank('Sword')">⚔️ Sword</div>
+                <div class="nav-item" onclick="showRank('Soup')">🍲 Soup</div>
+                <div class="nav-item" onclick="showRank('UHC')">🕸️ UHC</div>
+                <div class="nav-item" onclick="showRank('Pot')">🛡️ Pot</div>
+                <div class="nav-item" onclick="showRank('Hole')">🕳️ Hole</div>
+                <div class="nav-item" onclick="showRank('Bedwars')">🛏️ Bedwars</div>
+                <div class="nav-item" onclick="showRank('Skywars')">🌲 Skywars</div>
+                <div class="nav-item" onclick="showRank('EPvP')">💠 E. PvP</div>
             </div>
         </div>
 
-        <div class="subscribe-area">
-            <a href="https://www.youtube.com/@bloxdThemYT" class="sub-btn">Subscribe to 1Agamert</a>
+        <div class="leaderboard-box">
+            <div class="table-head">
+                <div style="width:40px;">#</div>
+                <div style="flex-grow:1;">PLAYER NAME</div>
+                <div>COMBAT TIER</div>
+            </div>
+            <div id="ranking-list">
+                </div>
         </div>
+
+        <a href="https://www.youtube.com/@bloxdThemYT?sub_confirmation=1" class="sub-btn" target="_blank">
+            SUBSCRIBE TO 1AGAMERT
+        </a>
     </div>
 
+    <script>
+        const rankings = {
+            'Overall': [ {n: 'Cyrex', t: 'HT5'}, {n: 'Maverick', t: 'HT5'}, {n: 'Sudi', t: 'HT4'}, {n: 'Xp101', t: 'HT4'}, {n: 'Mayhem', t: 'HT4'} ],
+            'Sword': [ {n: 'Cyrex', t: 'HT5'}, {n: 'Xp101', t: 'HT5'}, {n: 'Vortex', t: 'HT4'}, {n: 'SwiftPvP', t: 'HT4'}, {n: 'Blade', t: 'HT3'} ],
+            'Hole': [ {n: 'HoleMaster', t: 'HT5'}, {n: 'DeepVoid', t: 'HT5'}, {n: 'PitKing', t: 'HT4'}, {n: 'Cyrex', t: 'HT4'}, {n: 'Gravity', t: 'HT4'} ],
+            'Soup': [ {n: 'StewGod', t: 'HT5'}, {n: 'SoupPvP', t: 'HT5'}, {n: 'RefillKing', t: 'HT4'}, {n: 'Sudi', t: 'HT4'}, {n: 'Healthy', t: 'HT4'} ],
+            'UHC': [ {n: 'GoldenApple', t: 'HT5'}, {n: 'IronMan', t: 'HT5'}, {n: 'Crafty', t: 'HT4'}, {n: 'Xp101', t: 'HT4'}, {n: 'UHC_Pro', t: 'HT4'} ],
+            'Pot': [ {n: 'Alchemist', t: 'HT5'}, {n: 'SplashGod', t: 'HT5'}, {n: 'PotSpammer', t: 'HT4'}, {n: 'Healer', t: 'HT4'}, {n: 'Cyrex', t: 'HT4'} ],
+            'Bedwars': [ {n: 'BedBreaker', t: 'HT5'}, {n: 'Mayhem', t: 'HT5'}, {n: 'Clutcher', t: 'HT4'}, {n: 'Sudi', t: 'HT4'}, {n: 'BedGuard', t: 'HT4'} ],
+            'Skywars': [ {n: 'SkyHigh', t: 'HT5'}, {n: 'VoidWalker', t: 'HT5'}, {n: 'Bridger', t: 'HT4'}, {n: 'Maverick', t: 'HT4'}, {n: 'Winged', t: 'HT4'} ],
+            'EPvP': [ {n: 'EnergyPro', t: 'HT5'}, {n: 'Volt', t: 'HT5'}, {n: 'ZapPvP', t: 'HT4'}, {n: 'Xp101', t: 'HT4'}, {n: 'Spark', t: 'HT4'} ]
+        };
+
+        function showRank(cat) {
+            // Update Active Tab
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            
+            // Update Text
+            document.getElementById('status-text').innerText = cat + ' Ranking';
+
+            // Load Data
+            const list = document.getElementById('ranking-list');
+            list.innerHTML = '';
+            
+            const players = rankings[cat] || rankings['Overall'];
+            players.forEach((p, index) => {
+                const color = index === 0 ? 'var(--gold)' : (index === 1 ? '#c0c0c0' : (index === 2 ? '#cd7f32' : 'var(--text-sub)'));
+                list.innerHTML += `
+                    <div class="player-row">
+                        <div class="rank-col" style="color: ${color}">#${index + 1}</div>
+                        <div class="name-col">${p.n}</div>
+                        <div class="tier-col">${p.t}</div>
+                    </div>
+                `;
+            });
+        }
+
+        // Run Overall on load
+        showRank('Overall');
+    </script>
 </body>
 </html>
