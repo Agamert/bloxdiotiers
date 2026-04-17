@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1Agamert | Bloxd Leaderboard System</title>
+    <title>1Agamert | Bloxd Leaderboard</title>
     <style>
         :root {
             --bg-body: #080a10;
             --bg-card: #0c0f17;
-            --bg-sub-card: #111520;
-            --primary-accent: #58a6ff;
+            --primary-blue: #58a6ff;
             --text-main: #c9d1d9;
             --text-sub: #8b949e;
             --yt-red: #ff0000;
@@ -18,7 +17,7 @@
         body {
             background-color: var(--bg-body);
             color: var(--text-main);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -30,60 +29,84 @@
         .main-container {
             background-color: var(--bg-card);
             border: 1px solid #1f2937;
-            border-radius: 12px;
-            width: 100%;
-            max-width: 900px;
-            padding: 24px;
+            border-radius: 15px;
+            width: 95%;
+            max-width: 1000px;
+            padding: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* --- Header Section --- */
-        .header {
+        /* --- New Title & Profile Section --- */
+        .title-profile-area {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 24px;
+            gap: 20px;
+            margin-bottom: 25px;
         }
 
-        h1 {
-            color: var(--primary-accent);
+        .profile-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #1f2937;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            transition: border-color 0.3s;
+        }
+
+        .profile-circle:hover {
+            border-color: var(--yt-red);
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h2.title-text {
+            margin: 0;
             font-size: 1.8rem;
-            margin: 0;
+            color: var(--text-main);
+            letter-spacing: 0.5px;
         }
 
-        .author-text {
-            color: var(--text-sub);
-            font-size: 0.95rem;
-            margin: 0;
+        /* --- Category Bar --- */
+        .category-wrapper {
+            margin-bottom: 30px;
         }
 
-        /* --- Games Category Bar --- */
         .category-bar {
-            background-color: var(--bg-sub-card);
-            border-radius: 50px;
-            padding: 10px 20px;
             display: flex;
             gap: 12px;
-            margin-bottom: 20px;
             overflow-x: auto;
+            padding: 10px 15px;
+            background: #111520;
+            border-radius: 50px;
             border: 1px solid #1f2937;
+            scrollbar-width: thin;
+        }
+
+        .category-bar::-webkit-scrollbar {
+            height: 4px;
+        }
+        .category-bar::-webkit-scrollbar-thumb {
+            background: #30363d;
+            border-radius: 10px;
         }
 
         .category-item {
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 10px 20px;
+            padding: 8px 18px;
             border-radius: 50px;
-            font-weight: 500;
-            color: var(--text-main);
             white-space: nowrap;
             cursor: pointer;
-            transition: background 0.2s, color 0.2s;
-        }
-
-        .category-item:hover {
-            background-color: #1f2937;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: 0.2s;
         }
 
         .category-item.active {
@@ -91,153 +114,110 @@
             color: black;
         }
 
-        .category-icon {
-            font-size: 1.2rem;
+        .category-item:not(.active):hover {
+            background: #1f2937;
         }
 
-        /* --- Information and HT Tier --- */
-        .tiers-info-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-            gap: 20px;
+        /* --- Combat Tiers --- */
+        .tier-section {
+            margin-top: 20px;
         }
 
-        .combat-levels {
+        .tier-title {
+            color: var(--text-sub);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .tier-list {
             display: flex;
             gap: 10px;
             list-style: none;
             padding: 0;
-            margin: 0;
         }
 
-        .level-item {
-            background: var(--bg-sub-card);
-            padding: 12px 16px;
-            border-radius: 8px;
+        .tier-card {
+            background: rgba(88, 166, 255, 0.05);
             border: 1px solid #1f2937;
+            padding: 10px 18px;
+            border-radius: 6px;
+            color: var(--primary-blue);
             font-weight: bold;
-            font-size: 0.85rem;
-            color: var(--primary-accent);
+            font-size: 0.9rem;
+            text-align: center;
+            min-width: 55px;
         }
 
         .ht5 {
-            border-color: #f85149;
-            color: #f85149;
+            border-color: var(--yt-red);
+            color: var(--yt-red);
+            background: rgba(248, 81, 73, 0.05);
         }
 
-        /* --- Subscription Button --- */
-        .subscribe-btn {
-            background-color: var(--yt-red);
+        /* --- Subscribe Area --- */
+        .subscribe-area {
+            margin-top: 40px;
+            text-align: center;
+            border-top: 1px solid #1f2937;
+            padding-top: 25px;
+        }
+
+        .sub-btn {
+            background: var(--yt-red);
             color: white;
-            padding: 12px 24px;
             text-decoration: none;
+            padding: 14px 30px;
             border-radius: 8px;
             font-weight: bold;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: background-color 0.2s;
-        }
-
-        .subscribe-btn:hover {
-            background-color: #cc0000;
-        }
-
-        /* --- Coming Soon & Footer --- */
-        .coming-soon-container {
-            border-top: 1px solid #1f2937;
-            margin-top: 24px;
-            padding-top: 20px;
-            text-align: center;
-        }
-
-        .coming-soon-badge {
             display: inline-block;
-            background: rgba(248, 81, 73, 0.1);
-            color: #f85149;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            border: 1px solid #f85149;
-            text-transform: uppercase;
+            transition: transform 0.2s, background 0.2s;
         }
 
-        .project-details {
-            display: block;
-            margin-top: 10px;
-            font-style: italic;
-            color: var(--text-sub);
-            font-size: 0.9rem;
+        .sub-btn:hover {
+            background: #cc0000;
+            transform: scale(1.05);
         }
-
     </style>
 </head>
 <body>
 
     <div class="main-container">
         
-        <div class="header">
-            <div>
-                <h1>Leaderboard System</h1>
-                <p class="author-text">By 1Agamert</p>
+        <div class="title-profile-area">
+            <div class="profile-circle">
+                <img src="image_3.png" alt="1Agamert Profile" class="profile-image">
             </div>
-            <a href="https://www.youtube.com/@bloxdThemYT" target="_blank" class="subscribe-btn">
-                Subscribe to 1Agamert
-            </a>
+            <h2 class="title-text">By 1Agamert</h2>
         </div>
 
-        <div class="category-bar">
-            <div class="category-item active">
-                <span class="category-icon">🏆</span> Overall
-            </div>
-            <div class="category-item">
-                <span class="category-icon">⚔️</span> Sword
-            </div>
-            <div class="category-item">
-                <span class="category-icon">🍲</span> Soup
-            </div>
-            <div class="category-item">
-                <span class="category-icon">🕸️</span> UHC
-            </div>
-            <div class="category-item">
-                <span class="category-icon">🛡️</span> Pot
-            </div>
-            <div class="category-item">
-                <span class="category-icon">🕳️</span> Hole
-            </div>
-            <div class="category-item">
-                <span class="category-icon">🛏️</span> Bedwars
-            </div>
-            <div class="category-item">
-                <span class="category-icon">🌲</span> Skywars
-            </div>
-            <div class="category-item">
-                <span class="category-icon">💠</span> E. PvP
+        <div class="category-wrapper">
+            <div class="category-bar">
+                <div class="category-item active">🏆 Overall</div>
+                <div class="category-item">⚔️ Sword</div>
+                <div class="category-item">🍲 Soup</div>
+                <div class="category-item">🕸️ UHC</div>
+                <div class="category-item">🛡️ Pot</div>
+                <div class="category-item">🕳️ Hole</div>
+                <div class="category-item">🛏️ Bedwars</div>
+                <div class="category-item">🌲 Skywars</div>
+                <div class="category-item">💠 E. PvP</div>
             </div>
         </div>
 
-        <div class="tiers-info-row">
-            <div>
-                <p class="author-text" style="margin-bottom: 5px;">Combat Tiers System:</p>
-                <ul class="combat-levels">
-                    <li class="level-item">HT1</li>
-                    <li class="level-item">HT2</li>
-                    <li class="level-item">HT3</li>
-                    <li class="level-item">HT4</li>
-                    <li class="level-item">HT5</li>
-                </ul>
+        <div class="tier-section">
+            <div class="tier-title">Combat Tiers:</div>
+            <div class="tier-list">
+                <div class="tier-card">HT1</div>
+                <div class="tier-card">HT2</div>
+                <div class="tier-card">HT3</div>
+                <div class="tier-card">HT4</div>
+                <div class="tier-card ht5">HT5</div>
             </div>
         </div>
 
-        <div class="coming-soon-container">
-            <span class="coming-soon-badge">System Coming Soon</span>
-            <span class="project-details">Project is currently under development...</span>
+        <div class="subscribe-area">
+            <a href="https://www.youtube.com/@bloxdThemYT" class="sub-btn">Subscribe to 1Agamert</a>
         </div>
-
     </div>
 
 </body>
