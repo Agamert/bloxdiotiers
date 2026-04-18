@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1Agamert | Bloxd Ranking</title>
+    <title>1Agamert | Bloxd Global Ranking</title>
     <style>
         :root {
             --bg-body: #080a10;
@@ -18,7 +18,7 @@
         body {
             background-color: var(--bg-body);
             color: var(--text-main);
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -32,12 +32,11 @@
             border: 1px solid #1f2937;
             border-radius: 16px;
             width: 95%;
-            max-width: 900px;
+            max-width: 850px;
             padding: 25px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.6);
         }
 
-        /* Profile Area */
         .profile-header {
             display: flex;
             align-items: center;
@@ -46,8 +45,8 @@
         }
 
         .profile-img-circle {
-            width: 65px;
-            height: 65px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             border: 2px solid var(--primary-blue);
             overflow: hidden;
@@ -56,10 +55,10 @@
 
         .profile-img-circle img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Navigation Bar (From Images) */
         .nav-scroll {
             overflow-x: auto;
             margin-bottom: 25px;
+            padding-bottom: 5px;
         }
 
         .nav-bar {
@@ -81,13 +80,12 @@
             transition: 0.2s;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .nav-item.active { background: white; color: black; }
         .nav-item:not(.active):hover { background: #1f2937; }
 
-        /* Leaderboard Table */
         .leaderboard-box {
             background: #0d1117;
             border-radius: 12px;
@@ -110,14 +108,14 @@
             justify-content: space-between;
             padding: 15px 20px;
             border-bottom: 1px solid #1f2937;
-            animation: slideIn 0.3s ease-out;
+            animation: fadeIn 0.4s ease-out;
         }
 
-        @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
         .rank-col { width: 40px; font-weight: bold; }
         .name-col { flex-grow: 1; font-weight: 500; }
-        .tier-col { color: var(--primary-blue); font-weight: bold; font-size: 0.9rem; }
+        .tier-col { color: var(--primary-blue); font-weight: bold; }
 
         .sub-btn {
             background: var(--yt-red);
@@ -129,8 +127,16 @@
             display: block;
             text-align: center;
             transition: 0.3s;
+            font-size: 1.1rem;
         }
         .sub-btn:hover { background: #cc0000; transform: scale(1.02); }
+
+        .redirect-notice {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
@@ -138,82 +144,91 @@
     <div class="main-container">
         
         <div class="profile-header">
-            <div class="profile-img-circle"><img src="profile.png" alt="1Agamert"></div>
+            <div class="profile-img-circle">
+                <img src="my_profile.png" alt="1Agamert">
+            </div>
             <div>
                 <h2 style="margin:0;">By 1Agamert</h2>
-                <div id="status-text" style="color: var(--primary-blue); font-size: 0.9rem;">Overall Ranking</div>
+                <div id="status-text" style="color: var(--primary-blue); font-size: 0.9rem;">Global Ranking</div>
             </div>
         </div>
 
         <div class="nav-scroll">
             <div class="nav-bar">
-                <div class="nav-item active" onclick="showRank('Overall')">🏆 Overall</div>
-                <div class="nav-item" onclick="showRank('Sword')">⚔️ Sword</div>
-                <div class="nav-item" onclick="showRank('Soup')">🍲 Soup</div>
-                <div class="nav-item" onclick="showRank('UHC')">🕸️ UHC</div>
-                <div class="nav-item" onclick="showRank('Pot')">🛡️ Pot</div>
-                <div class="nav-item" onclick="showRank('Hole')">🕳️ Hole</div>
-                <div class="nav-item" onclick="showRank('Bedwars')">🛏️ Bedwars</div>
-                <div class="nav-item" onclick="showRank('Skywars')">🌲 Skywars</div>
-                <div class="nav-item" onclick="showRank('EPvP')">💠 E. PvP</div>
+                <div class="nav-item active" onclick="showRank('Overall', event)">🏆 Overall</div>
+                <div class="nav-item" onclick="showRank('Sword', event)">⚔️ Sword</div>
+                <div class="nav-item" onclick="showRank('Soup', event)">🍲 Soup</div>
+                <div class="nav-item" onclick="showRank('UHC', event)">🕸️ UHC</div>
+                <div class="nav-item" onclick="showRank('Pot', event)">🛡️ Pot</div>
+                <div class="nav-item" onclick="showRank('Hole', event)">🕳️ Hole</div>
+                <div class="nav-item" onclick="showRank('Bedwars', event)">🛏️ Bedwars</div>
+                <div class="nav-item" onclick="showRank('Skywars', event)">🌲 Skywars</div>
+                <div class="nav-item" onclick="showRank('EPvP', event)">💠 E. PvP</div>
             </div>
         </div>
 
         <div class="leaderboard-box">
             <div class="table-head">
                 <div style="width:40px;">#</div>
-                <div style="flex-grow:1;">PLAYER NAME</div>
-                <div>COMBAT TIER</div>
+                <div style="flex-grow:1;">PLAYER</div>
+                <div>TIER</div>
             </div>
-            <div id="ranking-list">
-                </div>
+            <div id="ranking-list"></div>
         </div>
 
-        <a href="https://www.youtube.com/@bloxdThemYT?sub_confirmation=1" class="sub-btn" target="_blank">
+        <a id="yt-link" href="https://www.youtube.com/@bloxdThemYT?sub_confirmation=1" class="sub-btn" target="_blank">
             SUBSCRIBE TO 1AGAMERT
         </a>
+        
+        <div class="redirect-notice">
+            You will be redirected to the channel in <span id="timer">10</span> seconds...
+        </div>
     </div>
 
     <script>
         const rankings = {
-            'Overall': [ {n: 'Cyrex', t: 'HT5'}, {n: 'Maverick', t: 'HT5'}, {n: 'Sudi', t: 'HT4'}, {n: 'Xp101', t: 'HT4'}, {n: 'Mayhem', t: 'HT4'} ],
-            'Sword': [ {n: 'Cyrex', t: 'HT5'}, {n: 'Xp101', t: 'HT5'}, {n: 'Vortex', t: 'HT4'}, {n: 'SwiftPvP', t: 'HT4'}, {n: 'Blade', t: 'HT3'} ],
-            'Hole': [ {n: 'HoleMaster', t: 'HT5'}, {n: 'DeepVoid', t: 'HT5'}, {n: 'PitKing', t: 'HT4'}, {n: 'Cyrex', t: 'HT4'}, {n: 'Gravity', t: 'HT4'} ],
-            'Soup': [ {n: 'StewGod', t: 'HT5'}, {n: 'SoupPvP', t: 'HT5'}, {n: 'RefillKing', t: 'HT4'}, {n: 'Sudi', t: 'HT4'}, {n: 'Healthy', t: 'HT4'} ],
-            'UHC': [ {n: 'GoldenApple', t: 'HT5'}, {n: 'IronMan', t: 'HT5'}, {n: 'Crafty', t: 'HT4'}, {n: 'Xp101', t: 'HT4'}, {n: 'UHC_Pro', t: 'HT4'} ],
-            'Pot': [ {n: 'Alchemist', t: 'HT5'}, {n: 'SplashGod', t: 'HT5'}, {n: 'PotSpammer', t: 'HT4'}, {n: 'Healer', t: 'HT4'}, {n: 'Cyrex', t: 'HT4'} ],
-            'Bedwars': [ {n: 'BedBreaker', t: 'HT5'}, {n: 'Mayhem', t: 'HT5'}, {n: 'Clutcher', t: 'HT4'}, {n: 'Sudi', t: 'HT4'}, {n: 'BedGuard', t: 'HT4'} ],
-            'Skywars': [ {n: 'SkyHigh', t: 'HT5'}, {n: 'VoidWalker', t: 'HT5'}, {n: 'Bridger', t: 'HT4'}, {n: 'Maverick', t: 'HT4'}, {n: 'Winged', t: 'HT4'} ],
-            'EPvP': [ {n: 'EnergyPro', t: 'HT5'}, {n: 'Volt', t: 'HT5'}, {n: 'ZapPvP', t: 'HT4'}, {n: 'Xp101', t: 'HT4'}, {n: 'Spark', t: 'HT4'} ]
+            'Overall': [ {n: 'CyrexLIVE', t: 'HT5'}, {n: 'Maverick', t: 'HT5'}, {n: 'Sudi', t: 'HT4'}, {n: 'Xp101', t: 'HT4'}, {n: 'Mayhem', t: 'HT4'} ],
+            'Sword': [ {n: 'CyrexLIVE', t: 'HT5'}, {n: 'Xp101', t: 'HT5'}, {n: 'Vortex', t: 'HT4'}, {n: 'SwiftPvP', t: 'HT4'}, {n: 'Blade', t: 'HT4'} ],
+            'Soup': [ {n: 'CyrexLIVE', t: 'HT5'}, {n: 'SoupGod', t: 'HT5'}, {n: 'Stewie', t: 'HT4'}, {n: 'RefillKing', t: 'HT4'}, {n: 'Sudi', t: 'HT4'} ],
+            'UHC': [ {n: 'CyrexLIVE', t: 'HT5'}, {n: 'IronMan', t: 'HT5'}, {n: 'GoldenApple', t: 'HT4'}, {n: 'Xp101', t: 'HT4'}, {n: 'Crafty', t: 'HT4'} ],
+            'Pot': [ {n: 'CyrexLIVE', t: 'HT5'}, {n: 'SplashGod', t: 'HT5'}, {n: 'Alchemist', t: 'HT4'}, {n: 'PotSpammer', t: 'HT4'}, {n: 'Healer', t: 'HT4'} ],
+            'Hole': [ {n: 'CyrexLIVE', t: 'HT5'}, {n: 'HoleMaster', t: 'HT5'}, {n: 'DeepVoid', t: 'HT4'}, {n: 'PitKing', t: 'HT4'}, {n: 'Gravity', t: 'HT4'} ],
+            'Bedwars': [ {n: 'CyrexLIVE', t: 'HT5'}, {n: 'BedBreaker', t: 'HT5'}, {n: 'Mayhem', t: 'HT4'}, {n: 'Clutcher', t: 'HT4'}, {n: 'Defender', t: 'HT4'} ],
+            'Skywars': [ {n: 'CyrexLIVE', t: 'HT5'}, {n: 'SkyHigh', t: 'HT5'}, {n: 'VoidWalker', t: 'HT4'}, {n: 'Bridger', t: 'HT4'}, {n: 'Maverick', t: 'HT4'} ],
+            'EPvP': [ {n: 'CyrexLIVE', t: 'HT5'}, {n: 'Volt', t: 'HT5'}, {n: 'EnergyPro', t: 'HT4'}, {n: 'ZapPvP', t: 'HT4'}, {n: 'Spark', t: 'HT4'} ]
         };
 
-        function showRank(cat) {
-            // Update Active Tab
+        function showRank(cat, event) {
             document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            
-            // Update Text
+            if(event) event.currentTarget.classList.add('active');
             document.getElementById('status-text').innerText = cat + ' Ranking';
-
-            // Load Data
             const list = document.getElementById('ranking-list');
             list.innerHTML = '';
-            
             const players = rankings[cat] || rankings['Overall'];
             players.forEach((p, index) => {
                 const color = index === 0 ? 'var(--gold)' : (index === 1 ? '#c0c0c0' : (index === 2 ? '#cd7f32' : 'var(--text-sub)'));
-                list.innerHTML += `
-                    <div class="player-row">
-                        <div class="rank-col" style="color: ${color}">#${index + 1}</div>
-                        <div class="name-col">${p.n}</div>
-                        <div class="tier-col">${p.t}</div>
-                    </div>
-                `;
+                list.innerHTML += `<div class="player-row"><div class="rank-col" style="color: ${color}">#${index + 1}</div><div class="name-col">${p.n}</div><div class="tier-col">${p.t}</div></div>`;
             });
         }
 
-        // Run Overall on load
-        showRank('Overall');
+        // --- التوجيه التلقائي للقناة ---
+        let count = 10;
+        const timerElement = document.getElementById('timer');
+        const channelUrl = "https://www.youtube.com/@1Agamert?sub_confirmation=1";
+
+        const countdown = setInterval(() => {
+            count--;
+            timerElement.innerText = count;
+            if (count <= 0) {
+                clearInterval(countdown);
+                window.location.href = channelUrl;
+            }
+        }, 1000);
+
+        window.onload = () => {
+            const firstTab = document.querySelector('.nav-item');
+            showRank('Overall', { currentTarget: firstTab });
+        };
     </script>
 </body>
 </html>
