@@ -3,232 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1Agamert | Bloxd Global Ranking</title>
+    <title>Bloxd Players Rating</title>
     <style>
         :root {
-            --bg-body: #080a10;
-            --bg-card: #0c111a;
-            --primary-blue: #58a6ff;
-            --text-main: #c9d1d9;
-            --text-sub: #8b949e;
-            --yt-red: #ff0000;
-            --gold: #ffd700;
+            --primary-bg: #0f172a;
+            --card-bg: #1e293b;
+            --accent-gold: #fbbf24;
+            --accent-silver: #94a3b8;
+            --accent-bronze: #d97706;
+            --text-color: #f8fafc;
+            --button-color: #3b82f6;
         }
 
         body {
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            font-family: 'Segoe UI', Tahoma, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
         }
 
-        .main-container {
-            background-color: var(--bg-card);
-            border: 1px solid #1f2937;
-            border-radius: 16px;
-            width: 95%;
-            max-width: 850px;
-            padding: 25px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+        .container {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
         }
 
-        .profile-header {
+        .header-credit {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            border-bottom: 2px solid #334155;
+            padding-bottom: 10px;
+        }
+
+        .leaderboard {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 2rem;
+        }
+
+        .player-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            background: #334155;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+
+        .player-item:hover {
+            transform: scale(1.02);
+            background: #475569;
+        }
+
+        .rank-info {
             display: flex;
             align-items: center;
             gap: 15px;
-            margin-bottom: 25px;
         }
 
-        .profile-img-circle {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            border: 2px solid var(--primary-blue);
-            overflow: hidden;
-            background: #161b22;
-        }
-
-        .profile-img-circle img { width: 100%; height: 100%; object-fit: cover; }
-
-        .nav-scroll {
-            overflow-x: auto;
-            margin-bottom: 25px;
-            padding-bottom: 5px;
-        }
-
-        .nav-bar {
-            display: flex;
-            gap: 10px;
-            background: #111520;
-            padding: 10px;
-            border-radius: 50px;
-            border: 1px solid #1f2937;
-            width: max-content;
-        }
-
-        .nav-item {
-            padding: 8px 18px;
-            border-radius: 50px;
-            cursor: pointer;
-            white-space: nowrap;
-            font-weight: 500;
-            transition: 0.2s;
+        .rank-number {
+            font-weight: bold;
+            width: 30px;
+            height: 30px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            border-radius: 50%;
+            background: #0f172a;
         }
 
-        .nav-item.active { background: white; color: black; }
-        .nav-item:not(.active):hover { background: #1f2937; }
+        /* Colors for Ranks */
+        .rank-1 { color: var(--accent-gold); border: 1px solid var(--accent-gold); }
+        .rank-2 { color: var(--accent-silver); border: 1px solid var(--accent-silver); }
+        .rank-3 { color: var(--accent-bronze); border: 1px solid var(--accent-bronze); }
 
-        .leaderboard-box {
-            background: #0d1117;
-            border-radius: 12px;
-            border: 1px solid #1f2937;
-            overflow: hidden;
-            margin-bottom: 25px;
+        .player-name {
+            font-weight: 500;
         }
 
-        .table-head {
-            display: flex;
-            padding: 15px 20px;
-            background: rgba(255,255,255,0.03);
+        .rating-badge {
+            background: #1e293b;
+            padding: 4px 10px;
+            border-radius: 5px;
             font-size: 0.85rem;
-            color: var(--text-sub);
-            border-bottom: 1px solid #1f2937;
+            font-weight: bold;
+            color: #60a5fa;
+            border: 1px solid #3b82f6;
         }
 
-        .player-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 15px 20px;
-            border-bottom: 1px solid #1f2937;
-            animation: fadeIn 0.4s ease-out;
-        }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-
-        .rank-col { width: 40px; font-weight: bold; }
-        .name-col { flex-grow: 1; font-weight: 500; }
-        .tier-col { color: var(--primary-blue); font-weight: bold; }
-
-        .sub-btn {
-            background: var(--yt-red);
+        .visit-btn {
+            display: inline-block;
+            background-color: var(--button-color);
             color: white;
             text-decoration: none;
-            padding: 15px;
-            border-radius: 10px;
+            padding: 12px 25px;
+            border-radius: 30px;
             font-weight: bold;
-            display: block;
-            text-align: center;
-            transition: 0.3s;
-            font-size: 1.1rem;
+            transition: background 0.3s, box-shadow 0.3s;
         }
-        .sub-btn:hover { background: #cc0000; transform: scale(1.02); }
 
-        .redirect-notice {
-            text-align: center;
-            font-size: 0.8rem;
-            color: var(--text-sub);
-            margin-top: 15px;
+        .visit-btn:hover {
+            background-color: #2563eb;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
         }
     </style>
 </head>
 <body>
 
-    <div class="main-container">
-        
-        <div class="profile-header">
-            <div class="profile-img-circle">
-                <img src="my_profile.png" alt="1Agamert">
+<div class="container">
+    <div class="header-credit">By 1Agamert</div>
+    <h1>Bloxd Player Ratings</h1>
+
+    <div class="leaderboard">
+        <div class="player-item">
+            <div class="rank-info">
+                <span class="rank-number rank-1">1</span>
+                <span class="player-name">CyrexLIVE</span>
             </div>
-            <div>
-                <h2 style="margin:0;">By 1Agamert</h2>
-                <div id="status-text" style="color: var(--primary-blue); font-size: 0.9rem;">Global Ranking</div>
-            </div>
+            <span class="rating-badge">HT5</span>
         </div>
 
-        <div class="nav-scroll">
-            <div class="nav-bar">
-                <div class="nav-item active" onclick="showRank('Overall', event)">🏆 Overall</div>
-                <div class="nav-item" onclick="showRank('Sword', event)">⚔️ Sword</div>
-                <div class="nav-item" onclick="showRank('Soup', event)">🍲 Soup</div>
-                <div class="nav-item" onclick="showRank('UHC', event)">🕸️ UHC</div>
-                <div class="nav-item" onclick="showRank('Pot', event)">🛡️ Pot</div>
-                <div class="nav-item" onclick="showRank('Hole', event)">🕳️ Hole</div>
-                <div class="nav-item" onclick="showRank('Bedwars', event)">🛏️ Bedwars</div>
-                <div class="nav-item" onclick="showRank('Skywars', event)">🌲 Skywars</div>
-                <div class="nav-item" onclick="showRank('EPvP', event)">💠 E. PvP</div>
+        <div class="player-item">
+            <div class="rank-info">
+                <span class="rank-number rank-2">2</span>
+                <span class="player-name">bloxd.io_Maverick</span>
             </div>
+            <span class="rating-badge">HT4</span>
         </div>
 
-        <div class="leaderboard-box">
-            <div class="table-head">
-                <div style="width:40px;">#</div>
-                <div style="flex-grow:1;">PLAYER</div>
-                <div>TIER</div>
+        <div class="player-item">
+            <div class="rank-info">
+                <span class="rank-number rank-3">3</span>
+                <span class="player-name">bedwarsmayhem</span>
             </div>
-            <div id="ranking-list"></div>
+            <span class="rating-badge">HT3</span>
         </div>
 
-        <a id="yt-link" href="https://www.youtube.com/@bloxdThemYT?sub_confirmation=1" class="sub-btn" target="_blank">
-            SUBSCRIBE TO 1AGAMERT
-        </a>
-        
-        <div class="redirect-notice">
-            You will be redirected to the channel in <span id="timer">10</span> seconds...
+        <div class="player-item">
+            <div class="rank-info">
+                <span class="rank-number">4</span>
+                <span class="player-name">Xp101</span>
+            </div>
+            <span class="rating-badge">HT2</span>
         </div>
     </div>
 
-    <script>
-        const rankings = {
-            'Overall': [ {n: 'CyrexLIVE', t: 'HT5'}, {n: 'Maverick', t: 'HT5'}, {n: 'Sudi', t: 'HT4'}, {n: 'Xp101', t: 'HT4'}, {n: 'Mayhem', t: 'HT4'} ],
-            'Sword': [ {n: 'CyrexLIVE', t: 'HT5'}, {n: 'Xp101', t: 'HT5'}, {n: 'Vortex', t: 'HT4'}, {n: 'SwiftPvP', t: 'HT4'}, {n: 'Blade', t: 'HT4'} ],
-            'Soup': [ {n: 'CyrexLIVE', t: 'HT5'}, {n: 'SoupGod', t: 'HT5'}, {n: 'Stewie', t: 'HT4'}, {n: 'RefillKing', t: 'HT4'}, {n: 'Sudi', t: 'HT4'} ],
-            'UHC': [ {n: 'CyrexLIVE', t: 'HT5'}, {n: 'IronMan', t: 'HT5'}, {n: 'GoldenApple', t: 'HT4'}, {n: 'Xp101', t: 'HT4'}, {n: 'Crafty', t: 'HT4'} ],
-            'Pot': [ {n: 'CyrexLIVE', t: 'HT5'}, {n: 'SplashGod', t: 'HT5'}, {n: 'Alchemist', t: 'HT4'}, {n: 'PotSpammer', t: 'HT4'}, {n: 'Healer', t: 'HT4'} ],
-            'Hole': [ {n: 'CyrexLIVE', t: 'HT5'}, {n: 'HoleMaster', t: 'HT5'}, {n: 'DeepVoid', t: 'HT4'}, {n: 'PitKing', t: 'HT4'}, {n: 'Gravity', t: 'HT4'} ],
-            'Bedwars': [ {n: 'CyrexLIVE', t: 'HT5'}, {n: 'BedBreaker', t: 'HT5'}, {n: 'Mayhem', t: 'HT4'}, {n: 'Clutcher', t: 'HT4'}, {n: 'Defender', t: 'HT4'} ],
-            'Skywars': [ {n: 'CyrexLIVE', t: 'HT5'}, {n: 'SkyHigh', t: 'HT5'}, {n: 'VoidWalker', t: 'HT4'}, {n: 'Bridger', t: 'HT4'}, {n: 'Maverick', t: 'HT4'} ],
-            'EPvP': [ {n: 'CyrexLIVE', t: 'HT5'}, {n: 'Volt', t: 'HT5'}, {n: 'EnergyPro', t: 'HT4'}, {n: 'ZapPvP', t: 'HT4'}, {n: 'Spark', t: 'HT4'} ]
-        };
+    <a href="https://www.youtube.com/@1Agamert" target="_blank" class="visit-btn">
+        Visit @1Agamert Channel
+    </a>
+</div>
 
-        function showRank(cat, event) {
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            if(event) event.currentTarget.classList.add('active');
-            document.getElementById('status-text').innerText = cat + ' Ranking';
-            const list = document.getElementById('ranking-list');
-            list.innerHTML = '';
-            const players = rankings[cat] || rankings['Overall'];
-            players.forEach((p, index) => {
-                const color = index === 0 ? 'var(--gold)' : (index === 1 ? '#c0c0c0' : (index === 2 ? '#cd7f32' : 'var(--text-sub)'));
-                list.innerHTML += `<div class="player-row"><div class="rank-col" style="color: ${color}">#${index + 1}</div><div class="name-col">${p.n}</div><div class="tier-col">${p.t}</div></div>`;
-            });
-        }
-
-        // --- التوجيه التلقائي للقناة ---
-        let count = 10;
-        const timerElement = document.getElementById('timer');
-        const channelUrl = "https://www.youtube.com/@1Agamert?sub_confirmation=1";
-
-        const countdown = setInterval(() => {
-            count--;
-            timerElement.innerText = count;
-            if (count <= 0) {
-                clearInterval(countdown);
-                window.location.href = channelUrl;
-            }
-        }, 1000);
-
-        window.onload = () => {
-            const firstTab = document.querySelector('.nav-item');
-            showRank('Overall', { currentTarget: firstTab });
-        };
-    </script>
 </body>
 </html>
