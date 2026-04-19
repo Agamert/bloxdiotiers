@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تقييم لاعبين Bloxd.io</title>
+    <title>Bloxd.io Player Rating</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0a0b14;
+            background-color: #1a1a2e;
             color: white;
             display: flex;
             flex-direction: column;
@@ -17,98 +17,155 @@
             margin: 0;
         }
 
-        /* تصميم زر الـ Hole كما في الصورة */
-        .hole-button {
-            background-color: #1a2235;
-            padding: 10px 25px;
+        /* Hole Button Style */
+        .hole-option {
+            background-color: #16213e;
+            padding: 8px 20px;
             border-radius: 50px;
+            border: 1px solid #0f3460;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 10px;
-            border: 1px solid #2d3748;
+            margin-bottom: 15px;
             transition: 0.3s;
-            margin-bottom: 20px;
         }
 
-        .hole-button:hover {
-            background-color: #242e45;
+        .hole-option:hover {
+            background-color: #1f2c4d;
         }
 
-        .hole-icon {
-            width: 20px;
-            height: 15px;
+        .hole-circle {
+            width: 12px;
+            height: 12px;
             background: #444;
             border-radius: 50%;
-            box-shadow: inset 0 2px 5px #000;
+            box-shadow: inset 0 2px 4px #000;
         }
 
         .hole-text {
-            font-weight: bold;
             color: #63b3ed;
-            font-size: 18px;
+            font-weight: bold;
+            font-size: 14px;
         }
 
-        /* قائمة الترتيب - مخفية في البداية */
-        #ranking-list {
-            display: none;
+        /* Player Card */
+        .rating-card {
             background-color: #16213e;
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            width: 320px;
-            border: 2px solid #e94560;
-            animation: fadeIn 0.5s ease-in-out;
+            width: 300px;
+            text-align: center;
+            border: 2px solid #0f3460;
         }
 
-        .rank-item {
+        .player-name {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #4ecca3;
+        }
+
+        .stars {
+            font-size: 30px;
+            color: #f1c40f;
+            margin-bottom: 15px;
+        }
+
+        .stat-box {
+            display: flex;
+            justify-content: space-around;
+            background: #0f3460;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .stat-item span {
+            display: block;
+            font-size: 12px;
+            color: #bdc3c7;
+        }
+
+        /* Ranking List (Hidden by default) */
+        #ranking-section {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #4ecca3;
+            text-align: left;
+        }
+
+        .rank-row {
             display: flex;
             justify-content: space-between;
-            padding: 10px;
-            border-bottom: 1px solid #2d3748;
+            margin-bottom: 5px;
+            font-size: 14px;
         }
 
-        .rank-item:last-child { border-bottom: none; }
+        .rank-gold { color: #f1c40f; font-weight: bold; }
 
-        .rank-number { font-weight: bold; color: #f1c40f; }
-        .rank-name { color: #fff; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .btn-rate {
+            background-color: #e94560;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
         }
+
+        .btn-rate:hover { background-color: #ff2e63; }
     </style>
 </head>
 <body>
 
-    <div class="hole-button" onclick="showRanking()">
-        <div class="hole-icon"></div>
+    <div class="hole-option" onclick="toggleRanking()">
+        <div class="hole-circle"></div>
         <span class="hole-text">Hole</span>
     </div>
 
-    <div id="ranking-list">
-        <h3 style="text-align: center; color: #e94560;">متصدري الترتيب</h3>
-        <div class="rank-item">
-            <span class="rank-name">IMANUL</span>
-            <span class="rank-number">#1</span>
+    <div class="rating-card">
+        <div class="player-name">Player Name</div>
+        <div class="stars">★ ★ ★ ★ ☆</div>
+
+        <div class="stat-box">
+            <div class="stat-item">
+                <span>Wins</span>
+                <strong>45</strong>
+            </div>
+            <div class="stat-item">
+                <span>Level</span>
+                <strong>12</strong>
+            </div>
         </div>
-        <div class="rank-item">
-            <span class="rank-name">NeverlessFps</span>
-            <span class="rank-number">#2</span>
-        </div>
-        <div class="rank-item">
-            <span class="rank-name">1thekinsg300</span>
-            <span class="rank-number">#3</span>
+
+        <button class="btn-rate">Rate Player</button>
+
+        <div id="ranking-section">
+            <div class="rank-row">
+                <span>1. <span class="rank-gold">IMANUL</span></span>
+                <span>Top 1</span>
+            </div>
+            <div class="rank-row">
+                <span>2. NeverlessFps</span>
+                <span>Top 2</span>
+            </div>
+            <div class="rank-row">
+                <span>3. 1thekinsg300</span>
+                <span>Top 3</span>
+            </div>
         </div>
     </div>
 
     <script>
-        function showRanking() {
-            var list = document.getElementById("ranking-list");
-            if (list.style.display === "block") {
-                list.style.display = "none";
+        function toggleRanking() {
+            var section = document.getElementById("ranking-section");
+            if (section.style.display === "block") {
+                section.style.display = "none";
             } else {
-                list.style.display = "block";
+                section.style.display = "block";
             }
         }
     </script>
