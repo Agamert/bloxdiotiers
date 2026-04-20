@@ -1,55 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bloxd.io Player Rating</title>
+    <title>تقييم لاعبين Bloxd.io</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #1a1a2e;
             color: white;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
         }
 
-        /* Hole Button Style */
-        .hole-option {
-            background-color: #16213e;
-            padding: 8px 20px;
-            border-radius: 50px;
-            border: 1px solid #0f3460;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-            transition: 0.3s;
-        }
-
-        .hole-option:hover {
-            background-color: #1f2c4d;
-        }
-
-        .hole-circle {
-            width: 12px;
-            height: 12px;
-            background: #444;
-            border-radius: 50%;
-            box-shadow: inset 0 2px 4px #000;
-        }
-
-        .hole-text {
-            color: #63b3ed;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        /* Player Card */
         .rating-card {
             background-color: #16213e;
             padding: 20px;
@@ -66,6 +32,12 @@
             color: #4ecca3;
         }
 
+        .game-mode {
+            font-size: 14px;
+            color: #95a5a6;
+            margin-bottom: 20px;
+        }
+
         .stars {
             font-size: 30px;
             color: #f1c40f;
@@ -78,7 +50,6 @@
             background: #0f3460;
             padding: 10px;
             border-radius: 10px;
-            margin-bottom: 15px;
         }
 
         .stat-item span {
@@ -87,88 +58,49 @@
             color: #bdc3c7;
         }
 
-        /* Ranking List (Hidden by default) */
-        #ranking-section {
-            display: none;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px dashed #4ecca3;
-            text-align: left;
+        .stat-item strong {
+            font-size: 18px;
         }
-
-        .rank-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-            font-size: 14px;
-        }
-
-        .rank-gold { color: #f1c40f; font-weight: bold; }
 
         .btn-rate {
+            margin-top: 20px;
             background-color: #e94560;
             color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
-            width: 100%;
             transition: 0.3s;
         }
 
-        .btn-rate:hover { background-color: #ff2e63; }
+        .btn-rate:hover {
+            background-color: #ff2e63;
+        }
     </style>
 </head>
 <body>
 
-    <div class="hole-option" onclick="toggleRanking()">
-        <div class="hole-circle"></div>
-        <span class="hole-text">Hole</span>
-    </div>
-
     <div class="rating-card">
-        <div class="player-name">Player Name</div>
-        <div class="stars">★ ★ ★ ★ ☆</div>
+        <div class="player-name">اسم اللاعب</div>
+        <div class="game-mode">نمط اللعبة: Survival</div>
+        
+        <div class="stars">
+            ★ ★ ★ ★ ☆
+        </div>
 
         <div class="stat-box">
             <div class="stat-item">
-                <span>Wins</span>
+                <span>الانتصارات</span>
                 <strong>45</strong>
             </div>
             <div class="stat-item">
-                <span>Level</span>
+                <span>المستوى</span>
                 <strong>12</strong>
             </div>
         </div>
 
-        <button class="btn-rate">Rate Player</button>
-
-        <div id="ranking-section">
-            <div class="rank-row">
-                <span>1. <span class="rank-gold">IMANUL</span></span>
-                <span>Top 1</span>
-            </div>
-            <div class="rank-row">
-                <span>2. NeverlessFps</span>
-                <span>Top 2</span>
-            </div>
-            <div class="rank-row">
-                <span>3. 1thekinsg300</span>
-                <span>Top 3</span>
-            </div>
-        </div>
+        <button class="btn-rate">إضافة تقييم</button>
     </div>
-
-    <script>
-        function toggleRanking() {
-            var section = document.getElementById("ranking-section");
-            if (section.style.display === "block") {
-                section.style.display = "none";
-            } else {
-                section.style.display = "block";
-            }
-        }
-    </script>
 
 </body>
 </html>
