@@ -1,106 +1,214 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تقييم لاعبين Bloxd.io</title>
+    <title>Bloxd Ratings - 1Agamert</title>
     <style>
+        :root {
+            --primary-bg: #0f172a;
+            --card-bg: #1e293b;
+            --accent-gold: #fbbf24;
+            --accent-silver: #94a3b8;
+            --accent-bronze: #d97706;
+            --text-color: #f8fafc;
+            --button-color: #3b82f6;
+            --tab-inactive: #334155;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1a1a2e;
-            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
         }
 
-        .rating-card {
-            background-color: #16213e;
-            padding: 20px;
+        .container {
+            background-color: var(--card-bg);
+            padding: 2rem;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            width: 300px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            width: 95%;
+            max-width: 500px;
             text-align: center;
-            border: 2px solid #0f3460;
         }
 
-        .player-name {
-            font-size: 24px;
+        .header-credit {
+            font-size: 0.85rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             margin-bottom: 10px;
-            color: #4ecca3;
         }
 
-        .game-mode {
-            font-size: 14px;
-            color: #95a5a6;
+        /* Tabs Styling */
+        .tabs-container {
+            display: flex;
+            gap: 10px;
             margin-bottom: 20px;
         }
 
-        .stars {
-            font-size: 30px;
-            color: #f1c40f;
-            margin-bottom: 15px;
-        }
-
-        .stat-box {
-            display: flex;
-            justify-content: space-around;
-            background: #0f3460;
-            padding: 10px;
-            border-radius: 10px;
-        }
-
-        .stat-item span {
-            display: block;
-            font-size: 12px;
-            color: #bdc3c7;
-        }
-
-        .stat-item strong {
-            font-size: 18px;
-        }
-
-        .btn-rate {
-            margin-top: 20px;
-            background-color: #e94560;
-            color: white;
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            background: var(--tab-inactive);
+            color: white;
             cursor: pointer;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: bold;
             transition: 0.3s;
         }
 
-        .btn-rate:hover {
-            background-color: #ff2e63;
+        .tab-btn img {
+            width: 20px;
+            height: 20px;
         }
+
+        .tab-btn.active {
+            background: var(--button-color);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Leaderboard List */
+        .content-section {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .player-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            background: #334155;
+            border-radius: 8px;
+        }
+
+        .rank-info { display: flex; align-items: center; gap: 12px; }
+        .rank-num {
+            width: 28px; height: 28px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; font-weight: bold; font-size: 0.9rem;
+            background: #0f172a;
+        }
+
+        .gold { color: var(--accent-gold); border: 1px solid var(--accent-gold); }
+        .silver { color: var(--accent-silver); border: 1px solid var(--accent-silver); }
+        .bronze { color: var(--accent-bronze); border: 1px solid var(--accent-bronze); }
+
+        .rating-badge {
+            background: #1e293b;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #60a5fa;
+            border: 1px solid #3b82f6;
+        }
+
+        .footer-btn {
+            margin-top: 25px;
+            display: inline-block;
+            background: #ff0000; /* YouTube Red */
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .footer-btn:hover { transform: scale(1.05); background: #cc0000; }
     </style>
 </head>
 <body>
 
-    <div class="rating-card">
-        <div class="player-name">اسم اللاعب</div>
-        <div class="game-mode">نمط اللعبة: Survival</div>
-        
-        <div class="stars">
-            ★ ★ ★ ★ ☆
-        </div>
-
-        <div class="stat-box">
-            <div class="stat-item">
-                <span>الانتصارات</span>
-                <strong>45</strong>
-            </div>
-            <div class="stat-item">
-                <span>المستوى</span>
-                <strong>12</strong>
-            </div>
-        </div>
-
-        <button class="btn-rate">إضافة تقييم</button>
+<div class="container">
+    <div class="header-credit">By 1Agamert</div>
+    
+    <div class="tabs-container">
+        <button class="tab-btn active" onclick="showTab('sword-tab', this)">
+            <img src="https://i.imgur.com/8pXW66O.png" alt="Sword"> Sword
+        </button>
+        <button class="tab-btn" onclick="showTab('hole-tab', this)">
+            <img src="https://i.imgur.com/D8R2N3m.png" alt="Hole"> Hole
+        </button>
     </div>
+
+    <div id="sword-tab" class="content-section active">
+        <div class="player-item">
+            <div class="rank-info"><span class="rank-num gold">1</span><span>CyrexLIVE</span></div>
+            <span class="rating-badge">HT5</span>
+        </div>
+        <div class="player-item">
+            <div class="rank-info"><span class="rank-num silver">2</span><span>bloxd.io_Maverick</span></div>
+            <span class="rating-badge">HT4</span>
+        </div>
+        <div class="player-item">
+            <div class="rank-info"><span class="rank-num bronze">3</span><span>bedwarsmayhem</span></div>
+            <span class="rating-badge">HT3</span>
+        </div>
+        <div class="player-item">
+            <div class="rank-info"><span class="rank-num">4</span><span>Xp101</span></div>
+            <span class="rating-badge">HT2</span>
+        </div>
+    </div>
+
+    <div id="hole-tab" class="content-section">
+        <div class="player-item">
+            <div class="rank-info"><span class="rank-num gold">1</span><span>IMANUL</span></div>
+            <span class="rating-badge">HT5</span>
+        </div>
+        <div class="player-item">
+            <div class="rank-info"><span class="rank-num silver">2</span><span>NeverlessFps</span></div>
+            <span class="rating-badge">HT4</span>
+        </div>
+        <div class="player-item">
+            <div class="rank-info"><span class="rank-num bronze">3</span><span>1thekings300</span></div>
+            <span class="rating-badge">HT3</span>
+        </div>
+    </div>
+
+    <a href="https://www.youtube.com/@1Agamert" target="_blank" class="footer-btn">
+        Visit @1Agamert YouTube
+    </a>
+</div>
+
+<script>
+    function showTab(tabId, btn) {
+        // إخفاء كل الأقسام
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        // إزالة التنشيط عن كل الأزرار
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.classList.remove('active');
+        });
+        
+        // إظهار القسم المطلوب وتنشيط الزر
+        document.getElementById(tabId).classList.add('active');
+        btn.classList.add('active');
+    }
+</script>
 
 </body>
 </html>
